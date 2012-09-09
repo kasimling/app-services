@@ -40,13 +40,13 @@ FileCacheResizerOutputStream::~FileCacheResizerOutputStream()
 
 MojInt64 FileCacheResizerOutputStream::SpaceLeft() const
 {
-	return std::max(m_fileCacheBytesAllocated - m_bytesWritten, 0LL);
+	return std::max<MojInt64>(m_fileCacheBytesAllocated - m_bytesWritten, 0LL);
 }
 
 // This tries to write out as much as possible to the sink output stream
 void FileCacheResizerOutputStream::FlushBuffer()
 {
-	size_t bytesToWrite = std::min(SpaceLeft(), (MojInt64) m_buffer.size());
+	size_t bytesToWrite = std::min<MojInt64>(SpaceLeft(), (MojInt64) m_buffer.size());
 	ChainedOutputStream::Write(m_buffer.data(), bytesToWrite);
 	m_buffer.erase(0, bytesToWrite);
 
@@ -72,7 +72,7 @@ void FileCacheResizerOutputStream::Write(const char* src, size_t length)
 
 		// Write new stuff
 		if (SpaceLeft() > 0) {
-			size_t bytesToWrite = std::min((MojInt64) length, SpaceLeft());
+			size_t bytesToWrite = std::min<MojInt64>((MojInt64) length, SpaceLeft());
 			ChainedOutputStream::Write(src, bytesToWrite);
 			src += bytesToWrite;
 			length -= bytesToWrite;
@@ -99,8 +99,8 @@ void FileCacheResizerOutputStream::RequestResize()
 		MojInt64 newSize = m_fileCacheBytesAllocated + m_buffer.size();
 
 		MojInt64 extraSpace = newSize * 0.75; // request an extra 75%
-		extraSpace = std::max(extraSpace, 16 * 1024LL); // grow by at least 16K at a time
-		extraSpace = std::min(extraSpace, 1024 * 1024LL); // but no more than 1MB at a time
+		extraSpace = std::max<MojInt64>(extraSpace, 16 * 1024LL); // grow by at least 16K at a time
+		extraSpace = std::min<MojInt64>(extraSpace, 1024 * 1024LL); // but no more than 1MB at a time
 
 		newSize += extraSpace;
 

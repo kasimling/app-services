@@ -58,7 +58,7 @@ void ImapConfig::GetOptionalInt(const MojObject& obj, const char* prop, int& val
 	ErrorToException(err);
 
 	if(hasProp) {
-		value = std::max(minValue, std::min(temp, maxValue));
+		value = std::max<int>(minValue, std::min<int>(temp, maxValue));
 	}
 }
 

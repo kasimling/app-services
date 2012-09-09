@@ -133,7 +133,7 @@ void ListResponseParser::ParseFolder(const string& line, ImapFolder& folder)
 
 		if(!U_FAILURE(error)) {
 			// length could be larger than the buffer if it overflowed; use min(bufSize, length) to be safe
-			displayName = string(buf.get(), min(bufSize, length));
+			displayName = string(buf.get(), std::min<size_t>(bufSize, length));
 		} else {
 			MojLogWarning(m_log, "error decoding modified UTF-7 folder name");
 			displayName = folderName;

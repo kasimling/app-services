@@ -401,7 +401,7 @@ int ImapSession::GetNoopIdleTimeout()
 
 		if(m_account->IsYahoo()) {
 			// Max of 25 seconds for Yahoo, which doesn't like us to stay connected
-			keepAliveSeconds = std::min(keepAliveSeconds, 25);
+			keepAliveSeconds = std::min<int>(keepAliveSeconds, 25);
 		}
 	}
 

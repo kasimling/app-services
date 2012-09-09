@@ -137,7 +137,7 @@ void PreviewTextGenerator::TruncateUTF8(string& text, size_t maxLength) {
 		} else {
 			// Couldn't find the start of the last UTF-8 character.
 			// Strip out high-ASCII characters from the end.
-			text.resize( std::min(text.size(), maxLength) );
+			text.resize( std::min<size_t>(text.size(), maxLength) );
 			boost::trim_right_if(text, !boost::is_from_range(0, 127));
 		}
 	}

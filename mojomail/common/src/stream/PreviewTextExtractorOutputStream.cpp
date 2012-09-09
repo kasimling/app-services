@@ -34,7 +34,7 @@ void PreviewTextExtractorOutputStream::Write(const char* src, size_t length)
 		// already have enough text; do nothing
 	} else {
 		size_t space = m_previewLength - m_previewBuf.length();
-		size_t bytesToCopy = std::min(space, length);
+		size_t bytesToCopy = std::min<size_t>(space, length);
 		m_previewBuf.append(src, bytesToCopy);
 	}
 

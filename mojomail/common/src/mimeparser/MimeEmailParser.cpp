@@ -304,7 +304,7 @@ bool MimeEmailParser::MatchBoundary(const std::vector<BoundaryState>& boundaries
 		for (int i = boundaries.size() - 1; i >= 0; --i) {
 			const string& boundary = boundaries[i].boundary;
 
-			if (boundary.compare(0, boundary.length(), lineData + 2, std::min(boundary.length(), lineLength - 2)) == 0) {
+			if (boundary.compare(0, boundary.length(), lineData + 2, std::min<size_t>(boundary.length(), lineLength - 2)) == 0) {
 				result.matchIndex = i;
 
 				result.isEnd = (lineLength >= boundary.length() + 4

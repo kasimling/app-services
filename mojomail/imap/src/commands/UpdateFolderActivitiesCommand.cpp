@@ -171,7 +171,7 @@ void UpdateFolderActivitiesCommand::UpdateActivities()
 				// Create scheduled sync
 				ActivityBuilder ab;
 
-				int syncFrequencyMins = std::max(syncFrequency * 60, 5 * 60);
+				int syncFrequencyMins = std::max<int>(syncFrequency * 60, 5 * 60);
 				factory.BuildScheduledSync(ab, m_client.GetAccountId(), folderId, syncFrequencyMins, true);
 
 				m_activitySet->ReplaceActivity(ab.GetName(), ab.GetActivityObject());

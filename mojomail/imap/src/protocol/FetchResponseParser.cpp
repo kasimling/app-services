@@ -98,7 +98,7 @@ bool FetchResponseParser::HandleAdditionalData()
 
 		if (m_literalBytesRemaining > 0) {
 			size_t bytesAvailable = lineReader->NumBytesAvailable();
-			size_t bytesToCopy = min(bytesAvailable, m_literalBytesRemaining);
+			size_t bytesToCopy = std::min<size_t>(bytesAvailable, m_literalBytesRemaining);
 
 			boost::scoped_array<char> buf(new char[bytesToCopy]);
 
@@ -135,7 +135,7 @@ bool FetchResponseParser::HandleAdditionalData()
 
 	if(m_semantic->ExpectingBinaryData()) {
 		size_t bytesAvailable = lineReader->NumBytesAvailable();
-		size_t bytesToCopy = min(bytesAvailable, m_literalBytesRemaining);
+		size_t bytesToCopy = std::min<size_t>(bytesAvailable, m_literalBytesRemaining);
 
 		MojLogDebug(m_log, "reading additional binary data for parser; %d bytes available, %d needed",
 				bytesAvailable, m_literalBytesRemaining);

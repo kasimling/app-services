@@ -440,7 +440,7 @@ void BaseSyncSession::End()
 
 void BaseSyncSession::GetNewChanges()
 {
-	MojInt64 rev = std::max(m_lastSyncRev, m_nextSyncRev);
+	MojInt64 rev = std::max<MojInt64>(m_lastSyncRev, m_nextSyncRev);
 	GetNewChanges(m_getNewChangesSlot, m_folderId, rev, m_changesPage);
 }
 
@@ -483,11 +483,11 @@ MojErr BaseSyncSession::GetNewChangesResponse(MojObject& response, MojErr err)
 			m_lastSyncRev = lowestNewRev - 1;
 		} else {
 			// all revisions accounted for, or the list is empty
-			m_lastSyncRev = std::max(m_lastSyncRev, highestRev);
+			m_lastSyncRev = std::max<MojInt64>(m_lastSyncRev, highestRev);
 		}
 
 		// Should be at least a high as the next sync rev (in case the list is empty)
-		m_lastSyncRev = std::max(m_lastSyncRev, m_nextSyncRev);
+		m_lastSyncRev = std::max<MojInt64>(m_lastSyncRev, m_nextSyncRev);
 
 		MojLogInfo(m_log, "[sync session %s] ending; %d new local changes not handled yet, %d existing changes", m_syncSessionName.c_str(), newChanges, knownChanges);
 
